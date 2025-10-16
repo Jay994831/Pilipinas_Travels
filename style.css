@@ -1,0 +1,261 @@
+/* Root variables */
+:root{
+  --teal:#004d40;
+  --teal-2:#00796b;
+  --accent:#ff9800;
+  --bg:#eaf7f4;
+  --card:#ffffff;
+  --radius:12px;
+  --max-width:1100px;
+}
+
+/* Reset & basics */
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+body{
+  font-family:Inter, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background:var(--bg);
+  color:#333;
+  line-height:1.5;
+}
+a{text-decoration:none; color:inherit;}
+
+/* Header / Navbar */
+header{
+  background:var(--teal);
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 20px;
+  gap:12px;
+}
+header .logo{
+  font-weight:700;
+  font-size:1.4rem;
+}
+nav ul{
+  display:flex;
+  list-style:none;
+  gap:12px;
+}
+nav a{
+  color:#fff;
+  padding:8px 12px;
+  border-radius:8px;
+  transition:0.3s;
+  font-weight:500;
+}
+nav a:hover{
+  background:rgba(255,255,255,0.1);
+}
+
+/* Hero Section (only on home) */
+.hero{
+  height:90vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:#fff;
+  background:linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.25)),
+             url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/El_Nido_Palawan_Philippines.jpg/1600px-El_Nido_Palawan_Philippines.jpg') center/cover no-repeat;
+}
+.hero h1{
+  font-size:2.5rem;
+  margin-bottom:0.5rem;
+  text-shadow:0 2px 5px rgba(0,0,0,0.4);
+}
+.hero p{
+  font-size:1.2rem;
+  margin-bottom:1rem;
+  text-shadow:0 1px 3px rgba(0,0,0,0.3);
+  max-width:600px;
+}
+.hero .btn{
+  background:var(--accent);
+  color:#111;
+  font-weight:600;
+  padding:12px 24px;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  transition:0.3s;
+}
+.hero .btn:hover{
+  background:#ffb74d;
+  transform:scale(1.05);
+}
+
+/* Search bar */
+.search-bar{
+  display:flex;
+  gap:8px;
+  margin-top:12px;
+  max-width:600px;
+  width:90%;
+}
+.search-bar input{
+  flex:1;
+  padding:10px 12px;
+  border-radius:10px;
+  border:none;
+  outline:none;
+}
+.search-bar button{
+  padding:10px 14px;
+  border-radius:10px;
+  border:none;
+  background:var(--accent);
+  color:#111;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* Main content */
+main{
+  max-width:var(--max-width);
+  margin:24px auto;
+  padding:18px;
+}
+
+/* Filters / controls */
+.controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  align-items:center;
+  margin-bottom:14px;
+}
+.btn-filter{
+  background:var(--teal-2);
+  color:#fff;
+  padding:8px 12px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+}
+.btn-filter:hover{
+  background:#00695c;
+}
+
+/* Grid / Cards */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:16px;
+}
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
+  display:flex;
+  flex-direction:column;
+  transition:0.3s;
+}
+.card:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.12);
+}
+.card img{
+  width:100%;
+  height:170px;
+  object-fit:cover;
+  border-radius:10px;
+}
+.card h3{
+  margin:10px 0 6px 0;
+}
+.tags{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:auto;
+}
+.tag{
+  background:#f0f6f5;
+  padding:6px 8px;
+  border-radius:8px;
+  font-size:0.85rem;
+  cursor:default;
+}
+
+/* Modal */
+.modal{
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  background:rgba(0,0,0,0.6);
+  z-index:60;
+}
+.modal.open{display:flex;}
+.modal .panel{
+  background:#fff;
+  width:90%;
+  max-width:1000px;
+  border-radius:12px;
+  overflow:hidden;
+}
+.modal .panel .media{
+  display:grid;
+  grid-template-columns:1fr 320px;
+}
+.modal img{width:100%;height:100%;object-fit:cover;}
+.meta{padding:16px;}
+.close{
+  position:absolute;
+  right:18px;
+  top:18px;
+  background:#fff;
+  border-radius:999px;
+  padding:6px 8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* Footer */
+footer{
+  max-width:var(--max-width);
+  margin:30px auto;
+  padding:18px;
+  text-align:center;
+  color:#fff;
+  background:var(--teal);
+  border-radius:12px;
+}
+
+/* Contact form */
+form input, form textarea{
+  width:100%;
+  margin-bottom:12px;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+form button{
+  width:100%;
+  padding:12px;
+  background:var(--accent);
+  color:#111;
+  font-weight:600;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+form button:hover{background:#ffb74d;}
+
+/* Responsive */
+@media(max-width:768px){
+  .hero h1{font-size:2rem;}
+  .hero p{font-size:1rem;}
+  .modal .panel .media{grid-template-columns:1fr;}
+  .modal .panel .media img{height:260px;}
+}
+

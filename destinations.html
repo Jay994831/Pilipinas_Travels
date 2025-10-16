@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pilipinas Travels — Destinations</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* --- General Styles --- */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    header {
+      background: #00796b;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 24px;
+    }
+
+    header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff9800;
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Boracay_Beach.jpg/1200px-Boracay_Beach.jpg') no-repeat center center/cover;
+      color: #fff;
+      text-align: center;
+      padding: 120px 20px 60px;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 24px;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.5);
+    }
+
+    .hero .btn {
+      background: #ff9800;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .hero .btn:hover {
+      background: #e68900;
+    }
+
+    main {
+      padding: 40px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* --- Search Bar --- */
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .search-bar {
+      padding: 10px 16px;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+      width: 100%;
+      max-width: 300px;
+      font-size: 1rem;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .search-bar:focus {
+      border-color: #00796b;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .search-bar::placeholder {
+      color: #999;
+      font-style: italic;
+    }
+
+    .search-wrapper .search-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      font-size: 1rem;
+      color: #666;
+    }
+
+    /* --- Filter Buttons --- */
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-filter {
+      padding: 8px 16px;
+      border-radius: 20px;
+      border: 1px solid #00796b;
+      background: #fff;
+      color: #00796b;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn-filter:hover {
+      background: #00796b;
+      color: #fff;
+    }
+
+    /* --- Grid --- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .card h3 {
+      margin: 12px;
+      font-size: 1.2rem;
+    }
+
+    .card p {
+      margin: 0 12px 12px;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    .card .tags {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 12px 12px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .card .tag {
+      background: #e0f2f1;
+      color: #00796b;
+      padding: 4px 10px;
+      border-radius: 15px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    /* --- Modal --- */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .panel {
+      background: #fff;
+      border-radius: 12px;
+      max-width: 800px;
+      width: 100%;
+      overflow: hidden;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .panel .close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #ff9800;
+      border: none;
+      color: #fff;
+      font-size: 1.2rem;
+      padding: 6px 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .panel .media img {
+      width: 100%;
+      display: block;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .panel .meta {
+      padding: 16px;
+    }
+
+    .panel .meta h2 {
+      margin: 0 0 8px;
+    }
+
+    .panel .meta p {
+      margin: 0 0 12px;
+      color: #555;
+    }
+
+    .panel .meta img {
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.95);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #00796b;
+      color: #fff;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Pilipinas Travels 🇵🇭</div>
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="destinations.html">Destinations</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="destinations">
+    <!-- Elegant Search Bar -->
+    <div class="search-wrapper">
+      <input type="text" id="search" placeholder="Search destinations..." oninput="applySearch()" class="search-bar" />
+      <span class="search-icon">🔍</span>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="controls">
+      <button class="btn-filter" onclick="resetFilter()">Show all</button>
+      <button class="btn-filter" onclick="filterBy('beach')">Beaches</button>
+      <button class="btn-filter" onclick="filterBy('heritage')">Heritage</button>
+      <button class="btn-filter" onclick="filterBy('mountain')">Mountains</button>
+      <div style="margin-left:auto;font-size:0.9rem;color:#666">Tip: click any card to open a detailed gallery</div>
+    </div>
+
+    <!-- Destination Grid -->
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="panel">
+      <div style="position:relative">
+        <button class="close" onclick="closeModal()">✕</button>
+        <div class="media" id="modalMedia"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Pilipinas Travels • Photos sourced from Wikimedia Commons / public domain where available
+  </footer>
+
+  <script>
+    // --- Destinations Data ---
+    const DESTINATIONS = [
+      { id:'boracay', title:'Boracay Island', type:'beach', desc:'White Beach — powdery white sand, sunset paraws, lively nightlife.',
+        images:['https://i.pinimg.com/originals/f9/07/06/f90706b850c29b0ebd7ab18992f6fd4f.jpg','https://info.myboracayguide.com/wp-content/uploads/2023/12/where-is-boracay-located-in-aklan.jpg','https://ik.imagekit.io/tvlk/blog/2022/07/14.Boracay.jpg?tr=dpr-2,w-675'] },
+      { id:'el-nido', title:'El Nido, Palawan', type:'beach', desc:'Limestone cliffs, Big & Small Lagoon — island hopping paradise.',
+        images:['image.5','image.4','image.6'] },
+      { id:'chocolate-hills', title:'Chocolate Hills, Bohol', type: 'heritage', desc:'Over 1,200 conical hills — unique geological formation.',
+        images:['https://media02.stockfood.com/largepreviews/MjE4NjI3MDA3MQ==/70524841-Chocolate-Hills-Bohol-Philippines-Southeast-Asia-Asia.jpg','https://di262mgurvkjm.cloudfront.net/b696b84e-ae59-4555-82da-20f6612b3c3a/M15155_uxga.jpg'] },
+      { id:'banaue', title:'Banaue Rice Terraces', type:'heritage', desc:'2,000-year-old terraces carved by the Ifugao people.',
+        images:['https://wallpaperaccess.com/full/351832.jpg','https://wallpapers.com/images/hd/majestic-banaue-rice-terraces-asia-philippines-endjc37ti379p199.jpg'] },
+      { id:'coron', title:'Coron, Palawan', type:'beach', desc:'Wartime shipwrecks, Kayangan Lake, Twin Lagoon.',
+        images:['https://www.gettingstamped.com/wp-content/uploads/2014/03/Coron-Palawan-Philippines-Travel-Guide-Featured-Image-768x432.jpg','https://mlafqlkvsrtu.i.optimole.com/cb:hy5C.6711a/w:1440/h:1080/q:mauto/f:best/https://islandhoppinginthephilippines.com/palawan/wp-content/uploads/2023/03/Barracuda-lake-top-spot-to-visit-coron-palawan-scaled.jpg'] },
+      { id:'vigan', title:'Vigan City, Ilocos Sur', type:'heritage', desc:'Spanish colonial streets — Calle Crisologo and kalesa rides.',
+        images:['https://images.squarespace-cdn.com/content/v1/5a87961cbe42d637c54cab93/1552231338455-XA3XSBZIKINSH0RNFDDS/vigan-philippines-city-guide%2B%2Bthings-to-do-see','https://th.bing.com/th/id/R.ffcf1e94cc7c6fb68ea956dbc0073ea6?rik=7dEs1Jtp%2b1h1aA&riu=http%3a%2f%2f2.bp.blogspot.com%2f-N-1QkxigobQ%2fT-cp2x-uP9I%2fAAAAAAAAA0I%2f8CI4P3koFtg%2fs1600%2fvigan.jpg&ehk=KMdz93ADvFBn1aHDXSeJD7mi5uTcSwU1R1w9j%2bOmxWA%3d&risl=&pid=ImgRaw&r=0'] },
+      { id:'mt-apo', title:'Mount Apo', type:'mountain', desc:'Highest peak in the Philippines — biodiversity and hiking.',
+        images:['https://jontotheworld.com/wp-content/uploads/2022/05/Mount-Apo-2-e1653058737189.jpg','https://cdn.britannica.com/17/166817-050-1BDC8905/Mount-Apo-island-Mindanao-Philippines.jpg'] },
+      { id:'cebu', title:'Cebu City', type:'heritage', desc:'Magellan\'s Cross, Basilica del Santo Niño, and close to great diving spots.',
+        images:['https://i.pinimg.com/originals/79/15/8e/79158e7a26b4fd38fab9cd860098dc6a.jpg','https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Santo_Nino_Basilica.jpg/1200px-Santo_Nino_Basilica.jpg'] },
+      { id:'siargao', title:'Siargao Island', type:'beach', desc:'Cloud 9 surf break, Sugba Lagoon, and island hopping.',
+        images:['https://www.cherifaistesvalises.com/wp-content/uploads/2025/03/1-52.jpg','https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Naked_Island_Siargao.jpg/1200px-Naked_Island_Siargao.jpg'] },
+      { id:'tagaytay', title:'Tagaytay', type:'mountain', desc:'Cool climate and view of Taal Volcano and lake.',
+        images:['https://www.discoverthephilippines.com/wp-content/uploads/2021/10/article-cover-photo-guide-tagaytay.jpg','https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Taal_Lake_View_Tagaytay.jpg/1200px-Taal_Lake_View_Tagaytay.jpg'] }
+    ];
+
+    // --- Render Cards ---
+    const grid = document.getElementById('grid');
+    function render(list){
+      grid.innerHTML = '';
+      list.forEach(d=>{
+        const card = document.createElement('article');
+        card.className='card';
+        card.innerHTML=`
+          <img src="${d.images[0]}" alt="${d.title}" loading="lazy" />
+          <h3>${d.title}</h3>
+          <p>${d.desc}</p>
+          <div class="tags">
+            <span class="tag">${d.type}</span>
+            <button class="tag" style="cursor:pointer" onclick="openModal('${d.id}')">Open gallery</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+    render(DESTINATIONS);
+
+    function filterBy(type){ render(DESTINATIONS.filter(d=>d.type===type)); }
+    function resetFilter(){ render(DESTINATIONS); }
+
+    function applySearch(){
+      const q=document.getElementById('search').value.trim().toLowerCase();
+      if(!q) return render(DESTINATIONS);
+      const found = DESTINATIONS.filter(d=>d.title.toLowerCase().includes(q)||d.desc.toLowerCase().includes(q));
+      render(found.length?found:DESTINATIONS.filter(d=>d.title.toLowerCase().includes(q.split(' ')[0])));
+    }
+
+    // --- Modal ---
+    const modal=document.getElementById('modal');
+    function openModal(id){
+      const d=DESTINATIONS.find(x=>x.id===id);
+      if(!d) return;
+      const media=document.getElementById('modalMedia');
+      media.innerHTML=`
+        <div style="min-height:320px"><img src="${d.images[0]}" id="modalMain" alt="${d.title}"/></div>
+        <div class="meta">
+          <h2>${d.title}</h2>
+          <p>${d.desc}</p>
+          <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:8px">
+            ${d.images.map((img,i)=>`<img src="${img}" style="width:80px;height:60px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="swapMain('${img}')" alt="thumb${i}"/>`).join('')}
+          </div>
+        </div>
+      `;
+      modal.classList.add('open');
+    }
+
+    function swapMain(src){ document.getElementById('modalMain').src=src; }
+    function closeModal(){ modal.classList.remove('open'); }
+    document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModal();});
+  </script>
+</body>
+</html>
